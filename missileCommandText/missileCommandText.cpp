@@ -1,4 +1,11 @@
+// Student Name : Patrick Donnelly
+// Student ID : C00236160
 
+// Game :  Control trump as he eats cheetohs and launches deadly missiles across the world.
+//		   The goal, destroy japan. Why....Trump has no reason. It's just a Trump thing to do.
+//		   Various countries are hidden in different locations. You can destroy them if you want
+//		   But it is not necessary.
+//		   Only Nuclear missiles can travel as far as japan.
 
 #include <iostream>
 #include <stdlib.h>
@@ -819,9 +826,22 @@ void Missile::japanHit()
 	{*/
 		std::cout << "The nuke flattened tokyo. The japanese have surrendered" << std::endl;
 
+		system("PAUSE");
+		system("CLS");
+		title();
+
+		std::cout << "\n\n***************************************************************************************" << std::endl;
+		std::cout << "\n\nYou feel a sense of triumph inside you and retire to the white house. Well done i guess" << std::endl;
+		std::cout << "\n\n***************************************************************************************" << std::endl;
+		gameover = true;
+
+
 	//}
 	system("PAUSE");
-	missileSelect();
+	if (gameover == false)
+	{
+		missileSelect();
+	}
 
 }
 
