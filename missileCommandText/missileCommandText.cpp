@@ -56,6 +56,8 @@ struct Missile {
 
 	void checkCollision();
 
+	void selfDestruct();
+
 	void arming();
 
 	int option;
@@ -317,8 +319,17 @@ void Missile::enterLaunchCode()
 
 			attemptsLeft -= 1;
 
+			if (attemptsLeft == 0)
+			{
+				selfDestruct();
+			}
+
 			system("PAUSE");
-			enterLaunchCode();
+
+			if (attemptsLeft != 0)
+			{
+				enterLaunchCode();
+			}
 		}
 	}
 	else if (option == 2)
@@ -717,12 +728,13 @@ void Missile::checkCollision()
 	}
 }
 
+
 void Missile::oceanHit()
 {
 	system("CLS");
 	title();
 
-	std::cout << "Mr. President that missile is headed straight for the ocean" << std::endl;
+	std::cout << "\nMr. President that missile is headed straight for the ocean" << std::endl;
 
 	if (payload == EXPLOSIVE)
 	{
@@ -741,7 +753,7 @@ void Missile::mexicoHit()
 	system("CLS");
 	title();
 
-	std::cout << "Mr. President that missile is headed straight for the centre of mexico" << std::endl;
+	std::cout << "\nMr. President that missile is headed straight for the centre of mexico" << std::endl;
 
 	if (payload == EXPLOSIVE)
 	{
@@ -761,7 +773,7 @@ void Missile::puertoRicoHit()
 	system("CLS");
 	title();
 
-	std::cout << "Mr. President that missile is headed straight for the centre of Puerto Rico....an American territory" << std::endl;
+	std::cout << "\nMr. President that missile is headed straight for the centre of Puerto Rico....an American territory" << std::endl;
 
 	if (payload == EXPLOSIVE)
 	{
@@ -781,7 +793,7 @@ void Missile::chinaHit()
 	system("CLS");
 	title();
 
-	std::cout << "Mr. President that missile is headed straight for China" << std::endl;
+	std::cout << "\nMr. President that missile is headed straight for China" << std::endl;
 
 	/*if (payload == EXPLOSIVE)
 	{
@@ -801,7 +813,7 @@ void Missile::japanHit()
 	system("CLS");
 	title();
 
-	std::cout << "Mr. President that missile is headed straight for Japan" << std::endl;
+	std::cout << "\nMr. President that missile is headed straight for Japan" << std::endl;
 
 	/*if (payload == EXPLOSIVE)
 	{
@@ -822,7 +834,7 @@ void Missile::southKoreaHit()
 	system("CLS");
 	title();
 
-	std::cout << "Mr. President that missile is headed straight for South Korea" << std::endl;
+	std::cout << "\nMr. President that missile is headed straight for South Korea" << std::endl;
 
 	/*if (payload == EXPLOSIVE)
 	{
@@ -842,7 +854,7 @@ void Missile::northKoreaHit()
 	system("CLS");
 	title();
 
-	std::cout << "Mr. President that missile is headed straight for North Korea" << std::endl;
+	std::cout << "\nMr. President that missile is headed straight for North Korea" << std::endl;
 
 	/*if (payload == EXPLOSIVE)
 	{
@@ -863,7 +875,7 @@ void Missile::irelandHit()
 	system("CLS");
 	title();
 
-	std::cout << "Mr. President that missile is headed straight for Europe" << std::endl;
+	std::cout << "\nMr. President that missile is headed straight for Europe" << std::endl;
 
 	/*if (payload == EXPLOSIVE)
 	{
@@ -885,7 +897,7 @@ void Missile::americaHit()
 	system("CLS");
 	title();
 
-	std::cout << "Mr. President that missile is headed straight for the states....we're in the states Mr. President" << std::endl;
+	std::cout << "\nMr. President that missile is headed straight for the states....we're in the states Mr. President" << std::endl;
 
 	/*if (payload == EXPLOSIVE)
 	{
@@ -905,7 +917,7 @@ void Missile::russiaHit()
 	system("CLS");
 	title();
 
-	std::cout << "Mr. President that missile is headed straight for the Soviets" << std::endl;
+	std::cout << "\nMr. President that missile is headed straight for the Soviets" << std::endl;
 
 	/*if (payload == EXPLOSIVE)
 	{
@@ -918,6 +930,57 @@ void Missile::russiaHit()
 	//}
 	system("PAUSE");
 	missileSelect();
+}
+
+void Missile::selfDestruct()
+{
+	system("CLS");
+	title();
+
+	std::cout << "\n\nYou have entered the incorrect launch code to many times. The facilty will now self destruct." << std::endl;
+	std::cout << "To prevent the system being jepordised. Doors are now Locked And no one may leave or enter." << std::endl;
+
+	system("PAUSE");
+
+	system("CLS");
+	title();
+
+	std::cout << "\n\n Death is imminent you idiot. How could you forget the most important password on the planet Trump" << std::endl;
+	
+	system("CLS");
+
+	std::cout << "         )  (    (        )   (    (        )      )  (  " << std::endl;
+	std::cout << "      ( /(  )\\ ) )\\ )  ( /(   )\\ ) )\\ )  ( /(   ( /(  )\\ ) " << std::endl;
+	std::cout << " (    )\\())(()/((()/(  )\\()) (()/((()/(  )\\())  )\\())(()/( " << std::endl;
+	std::cout << " )\\  ((_)\\  /(_))/(_))((_)\\   /(_))/(_))((_)\\  ((_)\\  /(_))" << std::endl;
+	std::cout << "((_) __((_)(_)) (_))    ((_) (_)) (_))    ((_)  _((_)(_)) " << std::endl;
+	std::cout << "| __|\\ \\/ /| _ \\| |    / _ \\ / __||_ _|  / _ \\ | \\| |/ __|  " << std::endl;
+	std::cout << "| _|  >  < |  _/| |__ | (_) |\\__ \\ | |  | (_) || .` |\\__ \\ " << std::endl;
+	std::cout << "|___|/_/\\_\\|_|  |____| \\___/ |___/|___|  \\___/ |_|\\_||___/ " << std::endl;
+	std::cout << "" << std::endl;
+
+	system("PAUSE");
+
+	system("CLS");
+
+	std::cout << "                   *              )               (" << std::endl;
+	std::cout << " (        (      (  `          ( /(               )\\ ) " << std::endl;
+	std::cout << " )\\ )     )\\     )\\))(   (     )\\()) (   (   (   (()/(" << std::endl;
+	std::cout << "(()/(  ((((_)(  ((_)()\\  )\\   ((_)\\  )\\  )\\  )\\   /(_))" << std::endl;
+	std::cout << " /(_))_ )\\ _ )\\ (_()((_)((_)    ((_)((_)((_)((_) (_)) " << std::endl;
+	std::cout << "(_)) __|(_)_\\(_)|  \\/  || __|  / _ \\\\ \\ / / | __|| _ \\" << std::endl;
+	std::cout << "  | (_ | / _ \\  | |\\/| || _|  | (_) |\\ V /  | _| |   /" << std::endl;
+	std::cout << "   \\___|/_/ \\_\\ |_|  |_||___|  \\___/  \\_/   |___||_|_\\ " << std::endl;
+	std::cout << "   *     (               (             *     (  " << std::endl;
+	std::cout << "(  `    )\\ )      *   ) )\\ )        (  `    )\\ )" << std::endl;
+	std::cout << " )\\))(  (()/(    ` )  /((()/(    (   )\\))(  (()/( " << std::endl;
+	std::cout << "((_)()\\  /(_))    ( )(_))/(_))   )\\ ((_)()\\  /(_)) " << std::endl;
+	std::cout << "(_()((_)(_))     (_(_())(_))  _ ((_)(_()((_)(_)) " << std::endl;
+	std::cout << "|  \\/  || _ \\    |_   _|| _ \\| | | ||  \\/  || _ \\ " << std::endl;
+	std::cout << "| |\\/| ||   / _    | |  |   /| |_| || |\\/| ||  _/ " << std::endl;
+	std::cout << "|_|  |_||_|_\\(_)   |_|  |_|_\\ \\___/ |_|  |_||_|  " << std::endl;
+
+	system("PAUSE");
 }
 
 
