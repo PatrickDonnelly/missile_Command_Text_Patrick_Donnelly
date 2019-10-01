@@ -32,7 +32,13 @@ struct Missile {
 	Target target;
 
 	bool armed;
-	int range = 0;
+	bool gameover;
+
+	int option;
+	int launchCode;
+	int remember;
+	int attemptsLeft;
+	int countdown;
 
 	void oceanHit();
 	void mexicoHit();
@@ -44,27 +50,14 @@ struct Missile {
 	void irelandHit();
 	void americaHit();
 	void russiaHit();
-
 	void title();
-
 	void missileSelect();
-
 	void missileConfirm();
 	void enterCoOrdinates();
-
 	void enterLaunchCode();
-
 	void checkCollision();
-
 	void selfDestruct();
-
 	void arming();
-
-	int option;
-	int launchCode;
-	int remember;
-	int attemptsLeft;
-	int countdown;
 
 	void arm()
 	{
@@ -89,9 +82,12 @@ int main()
 	missileControlPanel.remember = 0;
 	missileControlPanel.attemptsLeft = 5;
 	missileControlPanel.countdown = 60;
+	missileControlPanel.gameover = false;
 
-
-	missileControlPanel.missileSelect();
+	if (!missileControlPanel.gameover)
+	{
+		missileControlPanel.missileSelect();
+	}
 
 	std::cout << std::endl;
 	system("PAUSE");
@@ -979,6 +975,8 @@ void Missile::selfDestruct()
 	std::cout << "|  \\/  || _ \\    |_   _|| _ \\| | | ||  \\/  || _ \\ " << std::endl;
 	std::cout << "| |\\/| ||   / _    | |  |   /| |_| || |\\/| ||  _/ " << std::endl;
 	std::cout << "|_|  |_||_|_\\(_)   |_|  |_|_\\ \\___/ |_|  |_||_|  " << std::endl;
+
+	gameover = true;
 
 	system("PAUSE");
 }
