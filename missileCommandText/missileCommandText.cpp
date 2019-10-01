@@ -26,13 +26,10 @@ typedef struct Enemy {
 
 struct Missile {
 	WarHead payload;
-
+	
 	Coordinates coordinates;
 
 	Target target;
-
-	bool explosiveMissileSelected;
-	bool nuclearMissileSelected;
 
 	bool armed;
 	int range = 0;
@@ -89,7 +86,8 @@ int main()
 	
 	missileControlPanel.remember = 0;
 	missileControlPanel.attemptsLeft = 5;
-	missileControlPanel.countdown = 180;
+	missileControlPanel.countdown = 60;
+
 
 	missileControlPanel.missileSelect();
 
@@ -137,14 +135,12 @@ void Missile::missileSelect()
 
 	if (option == 1)
 	{
-		explosiveMissileSelected = true;
-		nuclearMissileSelected = false;
+		payload = EXPLOSIVE;
 		missileConfirm();
 	}
 	else if (option == 2)
 	{
-		explosiveMissileSelected = false;
-		nuclearMissileSelected = true;
+		payload = NUCLEAR;
 		missileConfirm();
 	}
 	else if (option == 3)
@@ -172,13 +168,13 @@ void Missile::enterCoOrdinates()
 	std::cout << "Please enter the x co-ordinates of your target Mr. President!" << std::endl;
 	std::cin >> coordinates.x;
 
-	if ((coordinates.x > 15 || coordinates.x < 0) && explosiveMissileSelected)
+	if ((coordinates.x > 15 || coordinates.x < 0) && payload == EXPLOSIVE)
 	{
 		std::cout << "Sir that missile cannot travel within that range. Please reconfigure the target's co-ordinates" << std::endl;
 		system("PAUSE");
 		enterCoOrdinates();
 	}
-	if ((coordinates.x > 30 || coordinates.x < 0) && nuclearMissileSelected)
+	if ((coordinates.x > 30 || coordinates.x < 0) && payload == NUCLEAR)
 	{
 		std::cout << "Sir that missile cannot travel within that range. Please reconfigure the target's co-ordinates" << std::endl;
 		system("PAUSE");
@@ -188,13 +184,13 @@ void Missile::enterCoOrdinates()
 	std::cout << "Please enter the y co-ordinates of your target Mr. President!" << std::endl;
 	std::cin >> coordinates.y;
 
-	if ((coordinates.y > 15 || coordinates.y < 0) && explosiveMissileSelected)
+	if ((coordinates.y > 15 || coordinates.y < 0) && payload == EXPLOSIVE)
 	{
 		std::cout << "Sir that missile cannot travel within that range. Please reconfigure the target's co-ordinates" << std::endl;
 		system("PAUSE");
 		enterCoOrdinates();
 	}
-	if ((coordinates.y > 30 || coordinates.y < 0) && nuclearMissileSelected)
+	if ((coordinates.y > 30 || coordinates.y < 0) && payload == NUCLEAR)
 	{
 		std::cout << "Sir that missile cannot travel within that range. Please reconfigure the target's co-ordinates" << std::endl;
 		system("PAUSE");
@@ -215,7 +211,7 @@ void Missile::missileConfirm()
 	title();
 	option = 0;
 
-	if (explosiveMissileSelected == true)
+	if (payload == EXPLOSIVE)
 	{
 		std::cout << "The explosive missile has a range of 15x15 do you think this will be far enough sir?" << std::endl;
 		std::cout << "1) Yes. Melania launch that explosive missile!" << std::endl;
@@ -345,11 +341,11 @@ void Missile::arming()
 	system("CLS");
 	title();
 
-	if (countdown > 120)
+	if (countdown >= 40)
 	{
 		std::cout << " 3 " << std::endl;
 	}
-	else if (countdown > 60)
+	else if (countdown >=20)
 	{
 		std::cout << " 3 " << std::endl;
 		std::cout << " 2 " << std::endl;
@@ -367,7 +363,7 @@ void Missile::arming()
 	}
 	else
 	{
-		countdown = 180;
+		countdown = 60;
 		std::cout << " 3 " << std::endl;
 		std::cout << " 2 " << std::endl;
 		std::cout << " 1 " << std::endl;
@@ -393,7 +389,7 @@ void Missile::checkCollision()
 	system("CLS");
 	title();
 
-	if (nuclearMissileSelected)
+	if (payload == NUCLEAR)
 	{
 		if ((coordinates.x >= 2 && coordinates.x <= 6) && (coordinates.y >= 0 && coordinates.y <=30))
 		{
@@ -650,7 +646,7 @@ void Missile::checkCollision()
 			oceanHit();
 		}
 	}
-	else if (explosiveMissileSelected)
+	else if (payload == EXPLOSIVE)
 	{
 		if ((coordinates.x >= 2 && coordinates.x <= 7) && (coordinates.y >= 0 && coordinates.y <= 30))
 		{
@@ -728,7 +724,7 @@ void Missile::oceanHit()
 
 	std::cout << "Mr. President that missile is headed straight for the ocean" << std::endl;
 
-	if (explosiveMissileSelected)
+	if (payload == EXPLOSIVE)
 	{
 		std::cout << "upon impact that explosive missile will decimate 10% of ocean life as we know it" << std::endl;
 	}
@@ -747,7 +743,7 @@ void Missile::mexicoHit()
 
 	std::cout << "Mr. President that missile is headed straight for the centre of mexico" << std::endl;
 
-	if (explosiveMissileSelected)
+	if (payload == EXPLOSIVE)
 	{
 		std::cout << "The missile landed in the desertlands. No casualties are being reported" << std::endl;
 	}
@@ -767,7 +763,7 @@ void Missile::puertoRicoHit()
 
 	std::cout << "Mr. President that missile is headed straight for the centre of Puerto Rico....an American territory" << std::endl;
 
-	if (explosiveMissileSelected)
+	if (payload == EXPLOSIVE)
 	{
 		std::cout << "The missile landed in the Ocean. No casualties are being reported" << std::endl;
 	}
@@ -787,7 +783,7 @@ void Missile::chinaHit()
 
 	std::cout << "Mr. President that missile is headed straight for China" << std::endl;
 
-	/*if (explosiveMissileSelected)
+	/*if (payload == EXPLOSIVE)
 	{
 		std::cout << "The missile landed in chinese territory. Civilian casualties are being reported. Expect retaliation" << std::endl;
 	}
@@ -807,7 +803,7 @@ void Missile::japanHit()
 
 	std::cout << "Mr. President that missile is headed straight for Japan" << std::endl;
 
-	/*if (explosiveMissileSelected)
+	/*if (payload == EXPLOSIVE)
 	{
 		std::cout << "The missile landed just outside the japanese mainland causing a minor tsunami. 5,000 casualtiesnare expected" << std::endl;
 	}
@@ -828,7 +824,7 @@ void Missile::southKoreaHit()
 
 	std::cout << "Mr. President that missile is headed straight for South Korea" << std::endl;
 
-	/*if (explosiveMissileSelected)
+	/*if (payload == EXPLOSIVE)
 	{
 		std::cout << "You just destroyed the modern musuem of korean pop. Expect your twitter to blow up from enraged angsty teens" << std::endl;
 	}
@@ -848,7 +844,7 @@ void Missile::northKoreaHit()
 
 	std::cout << "Mr. President that missile is headed straight for North Korea" << std::endl;
 
-	/*if (explosiveMissileSelected)
+	/*if (payload == EXPLOSIVE)
 	{
 		std::cout << "You just destroyed a north Korean Military base. Be prepared for retaliation" << std::endl;
 	}
@@ -869,7 +865,7 @@ void Missile::irelandHit()
 
 	std::cout << "Mr. President that missile is headed straight for Europe" << std::endl;
 
-	/*if (explosiveMissileSelected)
+	/*if (payload == EXPLOSIVE)
 	{
 		std::cout << "You just destroyed Offaly. Lucky for you no one in Ireland knows where that is." << std::endl;
 	}
@@ -891,7 +887,7 @@ void Missile::americaHit()
 
 	std::cout << "Mr. President that missile is headed straight for the states....we're in the states Mr. President" << std::endl;
 
-	/*if (explosiveMissileSelected)
+	/*if (payload == EXPLOSIVE)
 	{
 		std::cout << "What have you done, you've just caused 20,000 civilian deaths " << std::endl;
 	}
@@ -911,7 +907,7 @@ void Missile::russiaHit()
 
 	std::cout << "Mr. President that missile is headed straight for the Soviets" << std::endl;
 
-	/*if (explosiveMissileSelected)
+	/*if (payload == EXPLOSIVE)
 	{
 		std::cout << "The missile destroyed a Russian military base. Putin has vowed to not help rig your re-election campaign" << std::endl;
 	}
